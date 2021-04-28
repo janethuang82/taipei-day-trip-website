@@ -8,7 +8,7 @@ def main():
     mydb = mysql.connector.connect(
     host = "127.0.0.1",
     username = "root",
-    password = "!123Qweqwe",
+    password = "!123Qqweqwe",
     database = "information"
     )
 
