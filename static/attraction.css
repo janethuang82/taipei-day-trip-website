@@ -1,0 +1,55 @@
+.top{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.head{
+    /* position: absolute; left: 360px; top: 10px; */
+    font-size:30px;line-height: 34px;color: #448899;font-weight: bold;
+}
+.head1{
+    /* position: absolute; left: 1300px; top: 20px; */
+    justify-content:space-between;
+}
+.item{
+    font-size:16px;color: #666666;margin: 10px 0px;
+}
+.item1{
+    font-size:16px;color: #666666;margin: 10px 0px;
+}
+
+.information{
+    max-width: 1200px;
+}
+.img{
+    width: 540px; height: 406px;
+}
+.schedule{
+    width: 600px; height: 406px;
+}
+.locaiton_name{
+    width: 600px; height: 33px;
+    font-size:24px;color: #666666;
+}
+.locaiton_info{
+    width: 600px; height: 22px;
+}
+.plan{
+    width: 600px; height: 302px;
+    background-color: #E8E8E8;
+}
+.text{
+    font-weight: bold;
+    font-size:16px;color: #666666;
+}
+.text1{
+    font-size:16px;color: #666666;
+}
+.date{
+    font-weight: bold;
+    font-size:16px;color: #666666;
+}
+.detail{
+    max-width: 1200px;
+}
