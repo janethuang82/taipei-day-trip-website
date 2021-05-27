@@ -47,9 +47,9 @@
     function searchdata(keyword){
         
         console.log(keyword);   
-        src = "http://0.0.0.0:3000/api/attractions?page="+page;
+        src = "http://18.116.120.206:3000/api/attractions?page="+page;
         if (keyword !== null){
-        src = "http://0.0.0.0:3000/api/attractions?page="+page+"&keyword="+keyword;
+        src = "http://18.116.120.206:3000/api/attractions?page="+page+"&keyword="+keyword;
         }
        
         fetch(src).then(function(response){
