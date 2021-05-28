@@ -20,23 +20,38 @@
         </div>
         <main>
             <div class="information">
-                <span class="img" src="../static/welcome 1.png"></span>
+                <img class="img" src="../static/welcome 1.png"></img>
                 <span class="schedule">
                     <div class="location_name">安平鐘</div>
                     <div class="location_info">公共藝術 at 忠孝復興</div>
                     <div class="plan">
                         <div class="text">訂購導覽行程</div>
                         <div class="text1">以此景點為中心的一日行程，帶您探索城市角落故事</div>
-                        <input type="data" class="date"></input>
+                        <div>   
+                            <span class="text">選擇日期：</span>
+                            <input type="date" name="bday" class="text"></input>
+                        </div> 
+                        <div>   
+                            <span class="text">選擇時間：</span>
+                            <input type="radio" name="time" id="morning" class="text">上半天</input>
+                            <input type="radio" name="time" id="afternoon" class="text">下半天</input>
+                        </div>
+                        <div>   
+                            <span class="text">導覽費用：</span>
+                            <span class="text1">新台幣2000元</span>
+                        </div>
+                            <button class="go" id="reservation"></button>
+                            <div class="go1">開始預定行程</div>
+                        </div>
                     </div>
                 </span>
             </div>
             <div class="detail">
-                <div class="description"></div>
+                <div class="description">我愛台北</div>
                 <div class="address">景點地址：</div>
-                <div class="address1"></div>
+                <div class="address1">新店新店好地方</div>
                 <div class="transportation">交通方式：</div>
-                <div class="transportation1"></div>
+                <div class="transportation1">新店區公所 七張</div>
             </div>
         </main>
         <footer>

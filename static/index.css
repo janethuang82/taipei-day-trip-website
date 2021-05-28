@@ -24,7 +24,6 @@
     height:320px;
     background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
     margin:0px;padding:0px;
-    position: absolute; top: 54px;
 }
 .text{
     position: absolute; left: 370px; top: 85px;
@@ -49,19 +48,17 @@
     position: absolute; left: 785px; top: 196px;
 }
 main{
-    position: absolute; left: 0px; top: 429px;
     display:flex;flex-wrap:wrap;
     justify-content:center;
     max-width:1200px;
     margin:auto;
 }
 .view{
-    position: absolute; left: 375px; top: 429px;
     display:flex;flex-wrap:wrap;
     justify-content:center;
     max-width:1200px;height: 800px;
     margin:auto;
-    overflow: auto;
+    /* overflow: auto; */
 }
 .pic{
     flex:auto;margin:auto;max-width:270px; 
@@ -72,7 +69,6 @@ main{
     max-height: 190px;
 }
 .location-name{
-    /*position: relative; left: 10px; top: 173px;*/
     width:100%;
     height: 22px;
     /*padding: 173px 10px 7px 10px;*/
@@ -109,9 +105,9 @@ main{
     position: fixed;
 } 
 
-@media(max-width:360px){
+@media(min-width:360px) and (max-width:500px){
     .top{
-        max-width: 360px;
+        max-width: 500px;
         margin: auto;
         display: flex;
         justify-content: space-between;
@@ -131,11 +127,10 @@ main{
         font-size:12px;color: #666666;margin: 10px 0px;
     }
     .box{
-        max-width: 360px;
+        max-width: 500px;
         height:320px;
         background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
-        margin:0px;padding:0px;
-        position: relative top 54px;
+        margin:0px 0px 55px 0px;padding:0px;
     }
     .text{
         position: absolute; left: 20px; top: 85px;
@@ -154,14 +149,14 @@ main{
         max-width: 60px;height: 52px;background-color: #448899;
     }
     .welcome{
-        position: absolute; left: 265px; top: 196px;
+        position: absolute; left: 30px; top: 250px;
+        width: 190px;height: 120px;
         margin-left: 40%;
     }
     .welcome1{
         position: absolute; left: 265px; top: 196px;
     }
     main{
-        position: absolute; left: 0px; top: 429px;
         display:flex;flex-wrap:wrap;
         justify-content:center;
         max-width:360px;

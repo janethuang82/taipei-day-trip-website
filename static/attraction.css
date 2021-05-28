@@ -20,36 +20,51 @@
 }
 
 .information{
-    max-width: 1200px;
+    max-width: 1200px; margin: auto;
+    display: flex; justify-content: space-around;
 }
 .img{
-    width: 540px; height: 406px;
+    max-width: 540px; height: 406px;
 }
 .schedule{
-    width: 600px; height: 406px;
+    max-width: 600px;width: 90%; height: 406px;
 }
 .locaiton_name{
-    width: 600px; height: 33px;
-    font-size:24px;color: #666666;
+    max-width: 600px; height: 33px;
+    font-size:24px; line-height: 30px; color: #666666;
 }
 .locaiton_info{
-    width: 600px; height: 22px;
+    max-width: 600px; height: 22px;
+    font-size:16px; line-height: 30px;
 }
 .plan{
-    width: 600px; height: 302px;
+    max-width: 600px; height: 302px;
     background-color: #E8E8E8;
 }
 .text{
     font-weight: bold;
-    font-size:16px;color: #666666;
+    font-size:16px; line-height: 13.3px; color: #666666;
 }
 .text1{
-    font-size:16px;color: #666666;
+    font-size:16px; line-height: 13.3px; color: #666666;
 }
-.date{
-    font-weight: bold;
-    font-size:16px;color: #666666;
+.go{
+    width: 154px;height: 36px;background-color: #448899;
+}
+.go1{
+    font-size: 19px; line-height: 16px; color: white;
 }
 .detail{
     max-width: 1200px;
 }
+.footer{
+    background-color: #757575;
+    max-width: 1920px;height: 104px;
+    position:fixed;
+}
+.footer-text{
+    position: absolute; left: 843px; top: 1315px;
+    font-size:16px;line-height:13.3px;color: #FFFFFF;
+    width: 240px;height: 14px;
+    position: fixed;
+} 
