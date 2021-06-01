@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Taipei Trip 台北一日遊</title>
+    <link type="text/css" media="all"/>
+  
+<!-- <style>
+
+</style> -->
+
+</head>
+<body >
+	<div class="top">
+        <span class="head">台北一日遊</span>
+        <span class="head1"> 
+            <button class="item">預定行程</button>
+            <button class="item1">登入/註冊</button> 
+        </span>
+	</div>
+    <div class="box">
+        <div class="text">輕鬆享受台北一日悠閒</div>
+        <div class="text1">探索每個角落，體驗城市的深度旅遊行程</div>
+        <input type="text" class="blank" placeholder="輸入景點名稱查詢" id="search_location"></input>
+        <button class="blank1" id="lookup"></button>
+        <img class="welcome" src="../static/welcome 1.png"></img>
+        <img class="welcome1" src="../static/icon_search.png"></img>
+    </div>
+
+    <main > 
+        <div class="view" id="content"></div>
+    </main>
+    <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
+    
+    <script>
+        
+    var page = 0;
+    var keyword = null;
+    var src;
+    var id;
+    // let datalength = result.data.length;
+    //     console.log(datalength);
+    function searchdata(keyword){
+        
+        console.log(keyword);   
+        src = "http://18.116.120.206:3000/api/attractions?page="+page;
+        if (keyword !== null){
+        src = "http://18.116.120.206:3000/api/attractions?page="+page+"&keyword="+keyword;
+        }
+       
+        fetch(src).then(function(response){
+            console.log(src);
+            console.log(response); 
+            return response.json();
+            
+        }).then(function(result){
+            // console.log(result);
+            showdata(result);
+            nextPage=result.nextPage;
+            // console.log(nextPage);
+            page=nextPage;
+          
+        });
+    }
+        
+    function showdata(result){
+
+        let location;
+        let mrt;
+        let address;
+        let category;
+        let datalength = result.data.length;
+        // console.log(datalength);
+
+        if (datalength == 0){
+        document.getElementById("content").innerHTML="很抱歉，您所收尋的景點名稱查無相關資料...";    
+        }
+        for(let i = 0; i<datalength; i++){
+        
+            address = result.data[i].images[0];
+            // console.log(address);
+
+            location = result.data[i].name;
+            // console.log(location);
+
+            mrt = result.data[i].MRT;
+            // console.log(mrt);
+
+            category = result.data[i].category;
+            // console.log(category);
+
+            idnumber = result.data[i].id;
+            console.log(idnumber);
+
+            var box = document.createElement('div');
+            box.className = "pic";
+
+            var picbox = document.createElement('div');
+            picbox.className = "image";
+
+            box.appendChild(picbox);
+
+            var link = document.createElement('a');
+            link.href =  "http://18.116.120.206:3000/attraction/"+idnumber;
+            picbox.appendChild(link);
+
+            var imgbox = document.createElement('img');
+            imgbox.src = address;
+            link.appendChild(imgbox);
+
+            var titlebox = document.createElement('div');
+            titlebox.className = 'titlebox';
+            box.appendChild(titlebox);
+
+            var locationname = document.createElement('div');
+            locationname.className = 'location-name';
+            titlebox.appendChild(locationname);
+            locationname.innerText = location;
+
+            var mrtname = document.createElement('span');
+            mrtname.className = 'mrt-name';
+            titlebox.appendChild(mrtname);
+            mrtname.innerText = mrt;
+
+            var categoryname = document.createElement('span');
+            categoryname.className = 'category-name';
+            titlebox.appendChild(categoryname);
+            categoryname.innerText = category;
+
+            document.getElementById("content").appendChild(box);
+            };
+    }
+
+
+    searchdata(null);
+    
+    window.addEventListener('scroll', function()
+    {
+    if (window.scrollY*4>(document.documentElement.scrollHeight)){
+        searchdata(keyword);
+    }
+    });
+
+    var search = document.getElementById("lookup");
+    var clearn;
+    console.log(search);
+    
+    search.addEventListener('click', function(){
+        clearn = document.getElementById("content").innerHTML=" ";
+        keyword = document.getElementById("search_location").value;
+        console.log(keyword);
+        page = 0;
+        searchdata(keyword);
+        console.log(keyword);
+        
+    });
+    
+    </script>   
+</body>
+</html>

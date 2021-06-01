@@ -27,7 +27,21 @@ mycursor = mydb.cursor()
 def index():
 	return render_template("index.html")
 
-@app.route("/api/attraction/")
+@app.route("/attraction/<id>")
+def attraction(id):
+    return render_template("attraction.html")
+
+@app.route("/booking")
+def booking():
+	return render_template("booking.html")
+	
+@app.route("/thankyou")
+def thankyou():
+	return render_template("thankyou.html")
+
+
+
+@app.route("/api/attractions")
 def attraction_page():
 	keyword = request.args.get("keyword", None)	
 	if keyword is not None:
@@ -62,6 +76,7 @@ def attraction_page():
 			images = page_result[i][9]
 			images = images.split(",")
 			images.pop()
+			images.pop(0)
 
 			dic_detail = {'id':id, 'name':name, 'category':category, 'description':description, 'address': address, 'transport':transport, 'MRT':mrt, 'latitude': latitude, 'longitude': longitude, 'images': images}
 			page_list.append(dic_detail)
@@ -104,6 +119,7 @@ def attraction_page():
 			images = page_result[i][9]
 			images = images.split(",")
 			images.pop()
+			images.pop(0)
 
 			dic_detail = {'id':id, 'name':name, 'category':category, 'description':description, 'address': address, 'transport':transport, 'MRT': mrt, 'latitude': latitude, 'longitude': longitude, 'images': images}
 			page_list.append(dic_detail)
@@ -122,30 +138,26 @@ def attraction_id(id):
     id_result = mycursor.fetchone()
     dic_data = {}
     if id_result is not None:
-        name = id_result[1]
-        category = id_result[2]
-        description = id_result[3]
-        address = id_result[4]
-        transport = id_result[5]
-        mrt = id_result[6]
-        latitude = id_result[7]
-        longitude = id_result[8]
-        images = id_result[9]
-        images = images.split(",")
-        images.pop()
+    	name = id_result[1]
+    	category = id_result[2]
+    	description = id_result[3]
+    	address = id_result[4]
+    	transport = id_result[5]
+    	mrt = id_result[6]
+    	latitude = id_result[7]
+    	longitude = id_result[8]
+    	images = id_result[9]
+    	images = images.split(",")
+    	images.pop()
+		# images.pop(0)
 
-        dic_data["data"] = {'id':id, 'name':name, 'category':category, 'description': description, 'address': address, 'transport': transport, 'MRT':
+    	dic_data["data"] = {'id':id, 'name':name, 'category':category, 'description': description, 'address': address, 'transport': transport, 'MRT':
 		mrt, 'latitude':latitude, 'longitude': longitude, 'images':images}
-        return json.dumps(dic_data, ensure_ascii=False), 200
+    	return json.dumps(dic_data, ensure_ascii=False), 200
     else:
-        dic_data["data"] = {'error': 'true', 'message': '景點編號不正確'}
-        return json.dumps(dic_data, ensure_ascii=False), 400
+    	dic_data["data"] = {'error': 'true', 'message': '景點編號不正確'}
+    	return json.dumps(dic_data, ensure_ascii=False), 400
         # return render_template("attraction.html")
-@app.route("/booking")
-def booking():
-	return render_template("booking.html")
-@app.route("/thankyou")
-def thankyou():
-	return render_template("thankyou.html")
 
-app.run(host = "0.0.0.0",port=3000)
+
+app.run(host="0.0.0.0",port=3000)
