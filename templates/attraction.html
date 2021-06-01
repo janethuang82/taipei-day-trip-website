@@ -3,12 +3,12 @@
     <head>
         <link rel="stylesheet" type="text/css" href="../static/attraction.css">
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maxmum-sacale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Tipei Trip 台北一日遊</title>
         <link type="text/css" media="all">
-        <style>
-
-        </style>
+        <!-- <style>
+          
+        </style> -->
     </head>
     <body>
         <div class="top">
@@ -19,11 +19,75 @@
             </span>
         </div>
         <main>
+            <style>
+                /* .locaiton_name{
+                    max-width: 600px; height: 33px;
+                    font-size:24px; line-height: 40px; color: #666666;
+                }   
+                .locaiton_info{
+                    max-width: 600px; height: 22px;
+                    font-size:16px; line-height: 30px;
+                } */
+                .plan{
+                    max-width: 600px; height: 302px;
+                    background-color: #E8E8E8;
+                    padding: 15px 0px 0px 20px;
+                }
+                .text{
+                    font-weight: bold;
+                    font-size:16px; line-height: 25px; color: #666666;
+                    margin: 20px 0px 0px 20px;
+                }
+                .text1{
+                    font-size:16px; line-height: 25px; color: #666666;
+                    margin: 20px 0px 0px 20px;
+                }
+                .go{
+                    width: 154px;height: 36px;background-color: #448899;
+                    font-size:19px; line-height: 16px;color: white; 
+                    margin: 15px 0px 0px 20px;
+                }
+                .detail{
+                    max-width: 1200px;
+                    margin: auto;
+                }
+                .imgbox{
+                width: 100%; height: 100%;
+                }
+                .imgbox img{
+                width: 100%; height: 100%; margin: auto;
+                }
+                .prev{
+                position: absolute; left: 10px; top: 210px;
+                width: 50px; height: 50px;
+                font-size: 35px;
+                background-color: white; border-radius: 50px;
+                }
+                .next{
+                position: absolute; left: 480px; top: 210px;
+                width: 50px; height: 50px;
+                font-size: 35px;
+                background-color: white; border-radius: 50px;
+                }
+                .hr{
+                max-width: 1200px; margin: 0px 30px;
+                }
+            </style>
             <div class="information">
-                <img class="img" src="../static/welcome 1.png"></img>
+                <div class = "showbox">
+                    <div class="container" id="container">
+                        <div class="imgbox" id="imgbox">
+                        <div class="prev" id="prev">&#10094</div>
+                        <div class="next" id="next">&#10095</div>
+                        <div class="bottom" id="bottom"></div>
+                        </div>
+                        <!-- <button class="btn" onclick="plusIndex(-1)" id="prev">&#10094</button>
+                        <button class="btn1" onclick="plusIndex(1)" id="next">&#10095</button> -->
+                    </div>
+                </div>
                 <span class="schedule">
-                    <div class="location_name">安平鐘</div>
-                    <div class="location_info">公共藝術 at 忠孝復興</div>
+                    <div class="location_name" id="location_name" style="font-size: 24px; line-height: 50px; color: #666666;">安平鐘</div>
+                    <div class="location_info" id="location_info" style="font-size: 16px; line-height: 20px;">公共藝術 at 忠孝復興</div>
                     <div class="plan">
                         <div class="text">訂購導覽行程</div>
                         <div class="text1">以此景點為中心的一日行程，帶您探索城市角落故事</div>
@@ -38,28 +102,174 @@
                         </div>
                         <div>   
                             <span class="text">導覽費用：</span>
-                            <span class="text1">新台幣2000元</span>
+                            <span class="text1" id="cost">新台幣2000元</span>
                         </div>
-                            <button class="go" id="reservation"></button>
-                            <div class="go1">開始預定行程</div>
+                            <button class="go" id="reservation">開始預定行程</button>
                         </div>
                     </div>
                 </span>
             </div>
+        <hr class="hr"/>
             <div class="detail">
-                <div class="description">我愛台北</div>
-                <div class="address">景點地址：</div>
-                <div class="address1">新店新店好地方</div>
-                <div class="transportation">交通方式：</div>
-                <div class="transportation1">新店區公所 七張</div>
+                <div class="text1" id="description">我愛台北</div>
+                <div class="text">景點地址：</div>
+                <div class="text1" id="address">新店新店好地方</div>
+                <div class="text">交通方式：</div>
+                <div class="text1" id="transportation">新店區公所 七張</div>
             </div>
         </main>
-        <footer>
-            <div class="footer"></div>
-            <div class="footer-text">COPYRIGHT © 2021 台北一日遊</div>
-        </footer>
+        <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
         <script>
 
+            var url = location.href;
+            url = url.split("/");
+            // console.log(url);
+            var idnumber = url[4];
+
+            function pulldata(idnumber){
+                console.log(idnumber);
+
+                src="http://18.116.120.206:3000/api/attraction/"+idnumber;
+
+                fetch(src).then(function(response){
+                    console.log(src);
+                    console.log(response);
+                    return response.json();
+                }).then(function(result){
+                    console.log(result);
+                    showdetail(result);
+                });
+            }
+
+            function showdetail(result){
+                var img;
+                let location;
+                let cate;
+                let mrt;
+                let detail;
+                let address;
+                let transportaion;
+
+                img = result.data.images;
+                img = img.slice(1, );
+                console.log(img);
+
+                location = result.data.name;
+                console.log(location);
+
+                cate = result.data.category;
+                console.log(cate);
+
+                mrt = result.data.MRT;
+                console.log(mrt);
+
+                detail = result.data.description;
+                console.log(detail);
+
+                address = result.data.address;
+                console.log(address);
+
+                transportaion = result.data.transport;
+                console.log(transportaion);
+
+                
+                for (let i=0; i<img.length; i++){
+                var addimg=document.createElement("img");
+                console.log(addimg);
+                addimg.src=img[i];
+                document.getElementById("imgbox").appendChild(addimg);
+                }
+
+                var bottom_number;
+                var slider;
+                //add points//
+                for (let j=1; j<img.length+1; j++){
+                let bottom_id="btm"+j
+                bottom_number=document.createElement("span");
+                console.log(bottom_number);
+                bottom_number.id= bottom_id;
+                bottom_number.addEventListener('click', function(){btm(j)});
+                slider=document.querySelectorAll(".bottom span");
+                document.getElementById("bottom").appendChild(bottom_number);
+                }
+
+                // deal with prev&next//
+                left_slide=document.getElementById("prev");
+                left_slide.addEventListener('click', function(){slide(-1)});
+                right_slide=document.getElementById("next");
+                right_slide.addEventListener('click', function(){slide(1)});
+                
+                document.getElementById("location_name").innerHTML=location;
+                document.getElementById("location_info").innerHTML=cate + " at " + mrt;
+                document.getElementById("description").innerHTML=detail;
+                document.getElementById("address").innerHTML=address;
+                document.getElementById("transportation").innerHTML=transportaion;
+
+                var indexNumber=1;
+                showImages(indexNumber);
+
+                function showImages(n){
+                    let i;
+                    const img=document.querySelectorAll("img");
+                    if(n>img.length){indexNumber=1}
+                    if(n<1){indexNumber=img.length}
+                    for(i=0; i<img.length; i++){
+                        img[i].style.display="none";
+                    }
+                    for(i=0; i<slider.length; i++){
+                        slider[i].style.background="white";
+                    }
+                    img[indexNumber-1].style.display="block";
+                    slider[indexNumber-1].style.background="black";
+                }
+
+                function btm(n){
+                    showImages(indexNumber=n);
+                }
+
+                function slide(n){
+                    showImages(indexNumber+=n);
+                }
+
+                
+            }
+
+            pulldata(idnumber);
+
+            var morning_time = document.getElementById("morning");
+            var afternoon_time = document.getElementById("afternoon");
+
+            morning_time.addEventListener('click', function(){
+                clearn = document.getElementById("cost").innerHTML=" ";
+                update = document.getElementById("cost").innerHTML="新台幣2000元";
+            })
+
+            afternoon_time.addEventListener('click', function(){
+                clearn = document.getElementById("cost").innerHTML=" ";
+                update = document.getElementById("cost").innerHTML="新台幣2500元";
+            })
+
+            
+            // var index = 1;
+
+            // function plusIndex(n){
+            //     index = index+1;
+            //     showImage(index);
+            // }
+            
+            // showImage(1);
+
+            // function showImage(n){
+            //     var i;
+            //     var x = document.getElementsByClassName("img");
+            //     if(n>x.length){index=1};
+            //     if(n<1){index=x.length};
+            //     for(i=0;i<x.length;i++)
+            //         {
+            //             x[i].style.display="none";
+            //         }
+            //     x[index-1].style.display="block"
+            // }
         </script>
     </body>
 </html>

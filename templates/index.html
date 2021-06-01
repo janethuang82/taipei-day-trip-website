@@ -32,16 +32,14 @@
     <main > 
         <div class="view" id="content"></div>
     </main>
-    <footer>
-        <div class="footer"></div>
-        <div class="footer-text">COPYRIGHT © 2021 台北一日遊</div>
-    </footer>
+    <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
     
     <script>
         
     var page = 0;
     var keyword = null;
     var src;
+    var id;
     // let datalength = result.data.length;
     //     console.log(datalength);
     function searchdata(keyword){
@@ -74,7 +72,7 @@
         let address;
         let category;
         let datalength = result.data.length;
-        console.log(datalength);
+        // console.log(datalength);
 
         if (datalength == 0){
         document.getElementById("content").innerHTML="很抱歉，您所收尋的景點名稱查無相關資料...";    
@@ -93,6 +91,9 @@
             category = result.data[i].category;
             // console.log(category);
 
+            idnumber = result.data[i].id;
+            console.log(idnumber);
+
             var box = document.createElement('div');
             box.className = "pic";
 
@@ -101,9 +102,13 @@
 
             box.appendChild(picbox);
 
+            var link = document.createElement('a');
+            link.href =  "http://18.116.120.206:3000/attraction/"+idnumber;
+            picbox.appendChild(link);
+
             var imgbox = document.createElement('img');
             imgbox.src = address;
-            picbox.appendChild(imgbox);
+            link.appendChild(imgbox);
 
             var titlebox = document.createElement('div');
             titlebox.className = 'titlebox';
@@ -141,9 +146,7 @@
     var search = document.getElementById("lookup");
     var clearn;
     console.log(search);
-    // var handler = function(){
-       
-    // }
+    
     search.addEventListener('click', function(){
         clearn = document.getElementById("content").innerHTML=" ";
         keyword = document.getElementById("search_location").value;
