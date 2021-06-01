@@ -113,3 +113,17 @@
     font-size:20px;line-height:104px;color: #FFFFFF;
     text-align: center; 
 }
+@media(min-width:360px) and (max-width:500px){
+    .information{
+        max-width: 500px; margin: auto;
+    }
+    .showbox{
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .container{
+        position: relative; width: 540px; height: 420px;
+        overflow: hidden;
+    }
+}
