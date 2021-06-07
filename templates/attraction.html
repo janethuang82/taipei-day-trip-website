@@ -205,7 +205,10 @@
                 create_new.style.display="block";
                 bg_gray.style.display="block";
             }
-
+            //click create account//
+            function click_create(){
+                bg_gray.style.display="none";
+            }
             //back to signin//
             // var goto_signin=document.getElementById("register");
             function gotosignin(){
@@ -306,6 +309,7 @@
             create_account.addEventListener('click', function(event){
             event.preventDefault()
             create_new.style.display="none";
+            click_create();
             var create_name=document.getElementById("create_name").value;
             var create_email=document.getElementById("create_email").value;
             var create_pw=document.getElementById("create_pw").value;
