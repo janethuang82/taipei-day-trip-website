@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../static/booking.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Taipei Trip 台北一日遊</title>
+    <link type="text/css" media="all"/>
+</head>
+<body>
+    <div class="top">
+        <!-- <div class="gray" id="gray"></div> -->
+            <span class="head">台北一日遊</span>
+            <span class="head1"> 
+                <button class="item">預定行程</button>
+                <button class="item1" onclick="showsignin();" id="showsignin">登入/註冊</button> 
+            </span>
+    </div>
+<main>
+    <div class="hello">
+        <div class="title" id="name">您好，Janet，待預定行程如下：</div>
+        <div class="infobox">
+            <div class="imgbox">
+                <img class="photo" src="../static/welcome 1.png">
+            </div>
+            <div class="info">
+                <div class="location">台北一日遊：平安鐘</div>
+                <div class="date">
+                    <span class="cate">日期：</span>
+                    <span class="cate1" id="date">2021-04-23</span>
+                </div>
+                <div class="time">
+                    <span class="cate">時間：</span>
+                    <span class="cate1" id="time">早上9點到下午4點</span>
+                </div>
+                <div class="cost">
+                    <span class="cate">費用：</span>
+                    <span class="cate1" id="cost">新台幣2000元</span>
+                </div>
+                <div class="address">
+                    <span class="cate">地點：</span>
+                    <span class="cate1" id="address">台北市 大安區忠孝東路4段</span>
+                </div>
+            </div>
+            <div class="deletebox">
+                <img src="../static/icon_delete.png" class="delete">
+            </div>
+        </div>    
+    </div>
+    <hr class="hr"/>
+    <div class="contact">
+        <div class="title">您的聯絡資訊</div>
+            <span class="cate2">聯絡姓名：</span>
+            <input type="text" class="column" placeholder="Janet" id="user_name">
+            <span class="cate2">聯絡信箱：</span>
+            <input type="text" class="column" placeholder="Email" id="user_email">
+            <span class="cate2">手機號碼：</span>
+            <input type="text" class="column" placeholder="cellphone" id="user_phone">
+    <div class="notice">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+    </div>
+    <hr class="hr"/>
+    <div class="creditcard">
+        <div class="title">信用卡付款資訊</div>
+            <span class="cate2">卡片號碼：</span>
+            <input type="text" class="column" placeholder="**** **** **** ****" id="cardno">
+            <span class="cate2">過期時間：</span>
+            <input type="text" class="column" placeholder="MM/ YY" id="expdate">
+            <span class="cate2">驗證密碼：</span>
+            <input type="text" class="column" placeholder="CVV" id="CVV">
+    </div>
+    <hr class="hr"/>
+    <div class="confirm">
+        <div class="title" id="totalcost">總價：新台幣 2000 元</div>
+        <button class="go" id="reservation">開始預定行程</button>
+    </div>
+</main>
+<footer class="footer">COPYRIGHT © 2021 台北一日遊></footer>
+<script>
+
+</script>
+</body>
+</html>

@@ -6,18 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>Taipei Trip 台北一日遊</title>
     <link type="text/css" media="all"/>
-  
-<!-- <style>
-
-</style> -->
-
 </head>
 <body >
-	<div class="top">
+    <div class="gray" id="gray"></div>
+        <div class="signinbox" id="signin" action="/api/user" method="PATCH">
+            <div class="bluebar"></div>
+            <div class="account">登入會員帳號</div>
+            <button class="close" onclick="closesignin();" id="closesignin">X</button>
+            <input type="text" class="text2" placeholder="輸入電子信箱" id="signin_email">
+            <input type="text" class="text2" placeholder="輸入密碼" id="signin_pw">
+            <button class="signinbtm" id="signinaccount">登入帳戶</button>
+            <button class="notamember" onclick="createnew();" id="createnew">還沒有帳戶？點此註冊</button>
+        </div>
+        <div class="registerbox" id="register" action="/api/user" method="POST">
+            <div class="bluebar"></div>
+            <div class="account">註冊會員帳號</div>
+            <button class="close1" onclick="closesignin();" id="closesignin">X</button>
+            <input type="text" class="text2" placeholder="輸入姓名" id="create_name">
+            <input type="text" class="text2" placeholder="輸入電子信箱" id="create_email">
+            <input type="text" class="text2" placeholder="輸入密碼" id="create_pw">
+            <button class="signinbtm" id="createaccount">註冊新帳戶</button>
+            <button class="notamember" onclick="gotosignin();" id="gotosignin">已經有帳戶？點此登入</button>
+        </div>
+    <div class="top">
         <span class="head">台北一日遊</span>
         <span class="head1"> 
             <button class="item">預定行程</button>
-            <button class="item1">登入/註冊</button> 
+            <button class="item1" onclick="showsignin();" id="showsigninbtm">登入/註冊</button> 
+            <button class="item2" onclick="showsignout();" id="showsignoutbtm">登出</button> 
+            <div class="signinerror" id="signinerror">信箱或密碼輸入錯誤</div>
         </span>
 	</div>
     <div class="box">
@@ -34,7 +51,56 @@
     </main>
     <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
     
+    
     <script>
+    CheckUser();
+    var signin;
+    var bg_gray;
+    var showsigninbtm;
+    var showsignoutbtm;
+    //click signin open signin window//
+    window.onload=function(){
+        signin=document.getElementById("signin");
+    }
+    
+    bg_gray=document.getElementById("gray");
+    
+    function showsignin(){
+        signin.style.display="block";
+        bg_gray.style.display="block";
+    }
+   
+    //click close//
+    var close_window=document.getElementById("signin");
+    var close_register=document.getElementById("register");
+    function closesignin(){
+        close_window.style.display="none";
+        close_register.style.display="none";
+        bg_gray.style.display="none";
+    }
+
+    //create new account//
+    var create_new=document.getElementById("register");
+    function createnew(){
+        close_window.style.display="none";
+        create_new.style.display="block";
+        bg_gray.style.display="block";
+    }
+
+    //back to signin//
+    // var goto_signin=document.getElementById("register");
+    function gotosignin(){
+        create_new.style.display="none";
+        close_window.style.display="block";
+        bg_gray.style.display="block";
+    }
+
+    //click signout//
+    function showsignout(){
+        showsignoutbtm.style.display="none";
+        showsigninbtm.style.display="contents";
+        DeleteUser();
+    }
         
     var page = 0;
     var keyword = null;
@@ -42,9 +108,11 @@
     var id;
     // let datalength = result.data.length;
     //     console.log(datalength);
+    
+    //search data by keyword and show by page//
     function searchdata(keyword){
         
-        console.log(keyword);   
+        // console.log(keyword);   
         src = "http://18.116.120.206:3000/api/attractions?page="+page;
         if (keyword !== null){
         src = "http://18.116.120.206:3000/api/attractions?page="+page+"&keyword="+keyword;
@@ -52,8 +120,8 @@
        
         
         fetch(src).then(function(response){
-            console.log(src);
-            console.log(response); 
+            // console.log(src);
+            // console.log(response); 
             return response.json();
             
         }).then(function(result){
@@ -65,7 +133,8 @@
           
         });
     }
-        
+    
+    //show the data were orgnized to each img column//
     function showdata(result){
 
         let location;
@@ -93,7 +162,7 @@
             // console.log(category);
 
             idnumber = result.data[i].id;
-            console.log(idnumber);
+            // console.log(idnumber);
 
             var box = document.createElement('div');
             box.className = "pic";
@@ -134,7 +203,6 @@
             };
     }
 
-
     searchdata(null);
     
     window.addEventListener('scroll', function()
@@ -158,6 +226,104 @@
         
     });
     
+    showsigninbtm=document.getElementById("showsigninbtm");
+    showsignoutbtm=document.getElementById("showsignoutbtm");
+    var info;
+    //GetUser//
+    function CheckUser(){
+                fetch("api/user",{
+                    headers:{
+                        "content-type": "application/json"
+                    }
+                })
+            .then(response => response.json(info))
+            .then((info) => {
+                console.log(info);
+                if (info["info"]){
+                    showsigninbtm.style.display="none";
+                    showsignoutbtm.style.display="initial";
+                    bg_gray.style.display="none";
+                }
+            })
+            };
+            
+    //PostUser//
+    function RegistUser(url, info){
+        fetch(url,{
+            headers:{"content-type":"application/json"},
+            body: JSON.stringify(info),
+            method:("POST")
+        })
+        .then(response => response.json(info))
+        .then((info) => {
+            console.log(info)
+            // CheckUser()
+        })
+    };
+    //PatchUser//
+    var signinerror=document.getElementById("signinerror");
+    function SigninUser(url, info){
+        fetch(url,{
+            headers:{"content-type":"application/json"}, 
+            body: JSON.stringify(info), method:("PATCH")
+        })
+        .then(response => response.json(info))
+        .then((info) => {
+        console.log(info)
+        if (info["ok"]){
+            CheckUser();
+            showsigninbtm.style.display="none";
+            showsignoutbtm.style.display="initial";
+            signinerror.style.display="none";
+            bg_gray.style.display="none";
+        }
+        else{
+            signinerror.style.display="block";
+        }
+        })
+    };
+
+    //DeleteUser//
+    function DeleteUser(){
+        fetch("/api/user",{
+            headers:{
+                "content-type": "application/json"
+            }, method:("DELETE")
+        })
+        console.log(info);
+    };
+
+
+
+    var signin_account=document.getElementById("signinaccount");
+    signin_account.addEventListener('click', function(event){
+    event.preventDefault()
+    close_window.style.display="none";
+    var signin_email=document.getElementById("signin_email").value;
+    var signin_pw=document.getElementById("signin_pw").value;
+    var signin_info={"email": signin_email, "password": signin_pw};
+    SigninUser("/api/user", signin_info)
+
+    });
+
+
+    var create_account=document.getElementById("createaccount");
+    create_account.addEventListener('click', function(event){
+    event.preventDefault()
+    create_new.style.display="none";
+    var create_name=document.getElementById("create_name").value;
+    var create_email=document.getElementById("create_email").value;
+    var create_pw=document.getElementById("create_pw").value;
+    console.log(create_name);
+    console.log(create_email);
+    console.log(create_pw);
+
+    var create_info={"name":create_name, "email": create_email, "password": create_pw};
+    console.log(create_info);
+    RegistUser("/api/user", create_info);
+    });
     </script>   
 </body>
 </html>
+
+
