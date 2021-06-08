@@ -6,40 +6,53 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Tipei Trip 台北一日遊</title>
         <link type="text/css" media="all">
-        <!-- <style>
-          
-        </style> -->
+        
     </head>
     <body>
+        <div class="gray" id="gray"></div>
+            <div class="signinbox" id="signin" action="/api/user" method="PATCH">
+                <div class="bluebar"></div>
+                <div class="account">登入會員帳號</div>
+                <button class="close" onclick="closesignin();" id="closesignin">X</button>
+                <input type="text" class="text2" placeholder="輸入電子信箱" id="signin_email">
+                <input type="text" class="text2" placeholder="輸入密碼" id="signin_pw">
+                <button class="signinbtm" id="signinaccount">登入帳戶</button>
+                <button class="notamember" onclick="createnew();" id="createnew">還沒有帳戶？點此註冊</button>
+            </div>
+            <div class="registerbox" id="register" action="/api/user" method="POST">
+                <div class="bluebar"></div>
+                <div class="account">註冊會員帳號</div>
+                <button class="close1" onclick="closesignin();" id="closesignin">X</button>
+                <input type="text" class="text2" placeholder="輸入姓名" id="create_name">
+                <input type="text" class="text2" placeholder="輸入電子信箱" id="create_email">
+                <input type="text" class="text2" placeholder="輸入密碼" id="create_pw">
+                <button class="signinbtm" id="createaccount">註冊新帳戶</button>
+                <button class="notamember" onclick="gotosignin();" id="gotosignin">已經有帳戶？點此登入</button>
+            </div>
         <div class="top">
             <span class="head">台北一日遊</span>
-            <span class="head1">
+            <span class="head1"> 
                 <button class="item">預定行程</button>
-                <button class="item1">登入/註冊</button>
+                <button class="item1" onclick="showsignin();" id="showsigninbtm">登入/註冊</button> 
+                <button class="item2" onclick="showsignout();" id="showsignoutbtm">登出</button> 
+                <div class="signinerror" id="signinerror">信箱或密碼輸入錯誤</div>
             </span>
         </div>
         <main>
             <style>
-                /* .locaiton_name{
-                    max-width: 600px; height: 33px;
-                    font-size:24px; line-height: 40px; color: #666666;
-                }   
-                .locaiton_info{
-                    max-width: 600px; height: 22px;
-                    font-size:16px; line-height: 30px;
-                } */
                 .plan{
-                    max-width: 600px; height: 302px;
+                    max-width: 600px; height: 313px;
                     background-color: #E8E8E8;
-                    padding: 15px 0px 0px 20px;
+                    padding: 5px 0px 0px 20px;
+                    margin: 20px 0px 0px 0px;
                 }
                 .text{
                     font-weight: bold;
-                    font-size:16px; line-height: 25px; color: #666666;
+                    font-size:16px; line-height: 30px; color: #666666;
                     margin: 20px 0px 0px 20px;
                 }
                 .text1{
-                    font-size:16px; line-height: 25px; color: #666666;
+                    font-size:16px; line-height: 30px; color: #666666;
                     margin: 20px 0px 0px 20px;
                 }
                 .go{
@@ -70,7 +83,10 @@
                 background-color: white; border-radius: 50px;
                 }
                 .hr{
-                max-width: 1200px; margin: 0px 30px;
+                max-width: 1200px; width: 100%;
+                margin: 40px auto;
+                /* margin: 40px 351px; */
+                color: #E8E8E8;
                 }
                 @media(min-width:360px) and (max-width:500px){
                     .information{
@@ -87,19 +103,25 @@
                         overflow: hidden;
                     }
                     .hr{
-                        margin: 20px 30px;
+                        max-width: 500px; width: 100%;
+                        margin: 30px auto;
+                        color: #E8E8E8;
+                    }
+                    .detail{
+                        max-width: 500px;
+                        margin: auto;
                     }
                     .prev{
-                    position: absolute; left: 10px; top: 50%;
-                    width: 50px; height: 50px;
-                    font-size: 35px;
-                    background-color: white; border-radius: 50px;
+                        position: absolute; left: 10px; top: 50%;
+                        width: 50px; height: 50px;
+                        font-size: 35px;
+                        background-color: white; border-radius: 50px;
                     }
                     .next{
-                    position: absolute; left: 85%; top: 50%;
-                    width: 50px; height: 50px;
-                    font-size: 35px;
-                    background-color: white; border-radius: 50px;
+                        position: absolute; left: 85%; top: 50%;
+                        width: 50px; height: 50px;
+                        font-size: 35px;
+                        background-color: white; border-radius: 50px;
                     }
                 }
             </style>
@@ -117,7 +139,7 @@
                 </div>
                 <span class="schedule">
                     <div class="location_name" id="location_name" style="font-size: 24px; line-height: 50px; color: #666666;">安平鐘</div>
-                    <div class="location_info" id="location_info" style="font-size: 16px; line-height: 20px;">公共藝術 at 忠孝復興</div>
+                    <div class="location_info" id="location_info" style="font-size: 16px; line-height: 30px; color: #666666;">公共藝術 at 忠孝復興</div>
                     <div class="plan">
                         <div class="text">訂購導覽行程</div>
                         <div class="text1">以此景點為中心的一日行程，帶您探索城市角落故事</div>
@@ -150,12 +172,162 @@
         </main>
         <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
         <script>
+            CheckUser();
+            var signin;
+            var bg_gray;
+            var showsigninbtm;
+            var showsignoutbtm;
+            //click signin open signin window//
+            window.onload=function(){
+                signin=document.getElementById("signin");
+            }
+            
+            bg_gray=document.getElementById("gray");
+            
+            function showsignin(){
+                signin.style.display="block";
+                bg_gray.style.display="block";
+            }
+        
+            //click close//
+            var close_window=document.getElementById("signin");
+            var close_register=document.getElementById("register");
+            function closesignin(){
+                close_window.style.display="none";
+                close_register.style.display="none";
+                bg_gray.style.display="none";
+            }
 
+            //create new account//
+            var create_new=document.getElementById("register");
+            function createnew(){
+                close_window.style.display="none";
+                create_new.style.display="block";
+                bg_gray.style.display="block";
+            }
+            //click create account//
+            function click_create(){
+                bg_gray.style.display="none";
+            }
+            //back to signin//
+            // var goto_signin=document.getElementById("register");
+            function gotosignin(){
+                create_new.style.display="none";
+                close_window.style.display="block";
+                bg_gray.style.display="block";
+            }
+
+            //click signout//
+            function showsignout(){
+                showsignoutbtm.style.display="none";
+                showsigninbtm.style.display="contents";
+                DeleteUser();
+            }
+
+            showsigninbtm=document.getElementById("showsigninbtm");
+            showsignoutbtm=document.getElementById("showsignoutbtm");
+            var info;
+            //GetUser//
+            function CheckUser(){
+                        fetch("api/user",{
+                            headers:{
+                                "content-type": "application/json"
+                            }
+                        })
+                    .then(response => response.json(info))
+                    .then((info) => {
+                        console.log(info);
+                        if (info["info"]){
+                            showsigninbtm.style.display="none";
+                            showsignoutbtm.style.display="initial";
+                            bg_gray.style.display="none";
+                        }
+                    })
+                    };
+                    
+            //PostUser//
+            function RegistUser(url, info){
+                fetch(url,{
+                    headers:{"content-type":"application/json"},
+                    body: JSON.stringify(info),
+                    method:("POST")
+                })
+                .then(response => response.json(info))
+                .then((info) => {
+                    console.log(info)
+                    // CheckUser()
+                })
+            };
+            //PatchUser//
+            var signinerror=document.getElementById("signinerror");
+            function SigninUser(url, info){
+                fetch(url,{
+                    headers:{"content-type":"application/json"}, 
+                    body: JSON.stringify(info), method:("PATCH")
+                })
+                .then(response => response.json(info))
+                .then((info) => {
+                console.log(info)
+                if (info["ok"]){
+                    CheckUser();
+                    showsigninbtm.style.display="none";
+                    showsignoutbtm.style.display="initial";
+                    signinerror.style.display="none";
+                    bg_gray.style.display="none";
+                }
+                else{
+                    signinerror.style.display="block";
+                }
+                })
+            };
+
+            //DeleteUser//
+            function DeleteUser(){
+                fetch("/api/user",{
+                    headers:{
+                        "content-type": "application/json"
+                    }, method:("DELETE")
+                })
+                console.log(info);
+            };
+
+
+
+            var signin_account=document.getElementById("signinaccount");
+            signin_account.addEventListener('click', function(event){
+            event.preventDefault()
+            close_window.style.display="none";
+            var signin_email=document.getElementById("signin_email").value;
+            var signin_pw=document.getElementById("signin_pw").value;
+            var signin_info={"email": signin_email, "password": signin_pw};
+            SigninUser("/api/user", signin_info)
+
+            });
+
+
+            var create_account=document.getElementById("createaccount");
+            create_account.addEventListener('click', function(event){
+            event.preventDefault()
+            create_new.style.display="none";
+            click_create();
+            var create_name=document.getElementById("create_name").value;
+            var create_email=document.getElementById("create_email").value;
+            var create_pw=document.getElementById("create_pw").value;
+            console.log(create_name);
+            console.log(create_email);
+            console.log(create_pw);
+
+            var create_info={"name":create_name, "email": create_email, "password": create_pw};
+            console.log(create_info);
+            RegistUser("/api/user", create_info);
+            });
+            
             var url = location.href;
             url = url.split("/");
             // console.log(url);
             var idnumber = url[4];
 
+            // pull data by id//
             function pulldata(idnumber){
                 console.log(idnumber);
 
@@ -170,7 +342,7 @@
                     showdetail(result);
                 });
             }
-
+            // show detail of the location// 
             function showdetail(result){
                 var img;
                 let location;
@@ -238,6 +410,7 @@
                 var indexNumber=1;
                 showImages(indexNumber);
 
+                //slide//
                 function showImages(n){
                     let i;
                     const img=document.querySelectorAll("img");
@@ -260,12 +433,12 @@
                 function slide(n){
                     showImages(indexNumber+=n);
                 }
-
                 
             }
 
             pulldata(idnumber);
 
+            //radio//
             var morning_time = document.getElementById("morning");
             var afternoon_time = document.getElementById("afternoon");
 
@@ -300,6 +473,8 @@
             //         }
             //     x[index-1].style.display="block"
             // }
+
+            
         </script>
     </body>
 </html>
